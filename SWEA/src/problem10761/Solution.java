@@ -14,27 +14,15 @@ public class Solution {
 		for (int tc=1;tc<=T;tc++) {
 			st = new StringTokenizer(br.readLine());
 			int len = Integer.parseInt(st.nextToken());
-			char b = st.nextToken().charAt(0);
-			int a = Integer.parseInt(st.nextToken());
 			int o_loc = 1;
 			int b_loc = 1;
 			int o_time = 0;
 			int b_time = 0;
 			int time = 0;
 			char color= 'B';
-			if (b=='B') {
-				b_loc = a;
-				time+=Math.abs(a-1)+1;
-				o_time+=Math.abs(a-1)+1;
-			} else {
-				o_loc = a;
-				time+=Math.abs(a-1)+1;
-				b_time+=Math.abs(a-1)+1;
-				color='O';
-			}
-			for(int i=1;i<len;i++) {
-				b = st.nextToken().charAt(0);
-				a = Integer.parseInt(st.nextToken());
+			for(int i=0;i<len;i++) {
+				char b = st.nextToken().charAt(0);
+				int a = Integer.parseInt(st.nextToken());
 				if (b=='B') {
 					int add_time=Math.abs(a-b_loc);
 					if (color=='B') {
