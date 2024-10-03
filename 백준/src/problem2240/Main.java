@@ -19,9 +19,19 @@ public class Main {
 			arr[i] = Integer.parseInt(br.readLine());
 		}
 
+		for (int i = 0; i <= T; i++) {
+			for (int j = 0; j <= W; j++) {
+				for (int k = 1; k < 3; k++) {
+					dp[i][j][k] = -1;
+				}
+			}
+		}
+		
 		if (arr[1] == 1) {
 			dp[1][0][1] = 1;
+			dp[1][1][2] = 0;
 		} else {
+			dp[1][0][1] = 0;
 			dp[1][1][2] = 1;
 		}
 
@@ -33,19 +43,22 @@ public class Main {
 			}
 			for (int j = 1; j <= W; j++) {
 				if (arr[i] == 1) {
-					dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][2]) + 1;
+					dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][2]);
 					dp[i][j][2] = Math.max(dp[i - 1][j][2], dp[i - 1][j - 1][1]);
+					if(dp[i][j][1]==-1) {
+						continue;
+					} else {
+						dp[i][j][1] +=1;
+					}
 				} else {
-					dp[i][j][1] = Math.max(dp[i - 1][j - 1][1], dp[i - 1][j][2]);
-					dp[i][j][2] = Math.max(dp[i - 1][j][2], dp[i - 1][j - 1][1]) + 1;
+					dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j-1][2]);
+					dp[i][j][2] = Math.max(dp[i - 1][j][2], dp[i - 1][j - 1][1]);
+					if(dp[i][j][2]==-1) {
+						continue;
+					} else {
+						dp[i][j][2] +=1;
+					}
 				}
-				if ((i / 2) * 2 < j) {
-					dp[i][j][1] = 0;
-				}
-				if (((i + 1) / 2) * 2 < j) {
-					dp[i][j][2] = 1;
-				}
-
 			}
 		}
 		int max = 0;
@@ -53,14 +66,15 @@ public class Main {
 			max = Math.max(max, dp[T][i][1]);
 			max = Math.max(max, dp[T][i][2]);
 		}
-		for (int i = 0; i <= T; i++) {
-			for (int j = 0; j <= W; j++) {
-				for (int k = 1; k < 3; k++) {
-					System.out.print(dp[i][j][k] + " ");
-				}
-			}
-			System.out.println();
-		}
+//		for (int i = 0; i <= T; i++) {
+//			for (int j = 0; j <= W; j++) {
+//				for (int k = 1; k < 3; k++) {
+//					System.out.print(dp[i][j][k] + " ");
+//				}
+//			}
+//			System.out.println();
+//		}
 		System.out.println(max);
 	}
+	
 }
